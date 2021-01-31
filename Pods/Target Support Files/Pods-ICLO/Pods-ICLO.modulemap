@@ -1,0 +1,6 @@
+framework module Pods_ICLO {
+  umbrella header "Pods-ICLO-umbrella.h"
+
+  export *
+  module * { export * }
+}

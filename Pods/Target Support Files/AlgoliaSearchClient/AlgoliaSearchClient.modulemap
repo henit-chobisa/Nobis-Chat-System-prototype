@@ -1,0 +1,6 @@
+framework module AlgoliaSearchClient {
+  umbrella header "AlgoliaSearchClient-umbrella.h"
+
+  export *
+  module * { export * }
+}
