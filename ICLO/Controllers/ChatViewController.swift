@@ -34,6 +34,7 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var tableview: UITableView!
     
     var messages : [MessageContent] = []
+	var messagesbysender : [MessageContent] = []
     
     
     
@@ -89,9 +90,12 @@ class ChatViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
+	
+	//MARK: - loading messages
+	
     func loadMessages() {
         
-        db.collection("Henit").document("chatterlist").collection("chatters").document("chat").collection("messages")
+        db.collection((Auth.auth().currentUser?.email!)!).document("chatterlist").collection("chatters").document(subtitle).collection("messages")
             .order(by: "time")
             .addSnapshotListener { (querySnapshot, error) in
             
@@ -107,21 +111,50 @@ class ChatViewController: UIViewController {
                             let newMessage = MessageContent(sender: messageSender, message: messageBody)
                             self.messages.append(newMessage)
                             
-                            DispatchQueue.main.async {
-                                   self.tableview.reloadData()
-                                let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
-                                self.tableview.scrollToRow(at: indexPath, at: .top, animated: false)
-                            }
+                         
                         }
                     }
                 }
             }
+				self.db.collection(self.subtitle).document("chatterlist").collection("chatters").document((Auth.auth().currentUser?.email!)!).collection("messages")
+					.order(by: "time")
+					.addSnapshotListener { (querySnapshot, error) in
+					
+						
+					
+					if let e = error {
+						print("There was an issue retrieving data from Firestore. \(e)")
+					} else {
+						if let snapshotDocuments = querySnapshot?.documents {
+							for doc in snapshotDocuments {
+								let data = doc.data()
+								if let messageSender = data["sender"] as? String, let messageBody = data["message"] as? String {
+									let newMessage = MessageContent(sender: messageSender, message: messageBody)
+									self.messages.append(newMessage)
+									
+									DispatchQueue.main.async {
+										   self.tableview.reloadData()
+										let indexPath = IndexPath(row:  self.messages.count - 1, section: 0)
+										self.tableview.scrollToRow(at: indexPath, at: .top, animated: false)
+									}
+								}
+							}
+						}
+					}
+				}
         }
+		
+	
+		//MARK: - pin
+		
     }
     
+	//MARK: - sending messages
+	
     @IBAction func gobuttonpressed(_ sender: UIButton) {
+	
         if let messageBody = textfeild.text, let messageSender = Auth.auth().currentUser?.email {
-            self.db.collection("Henit").document("chatterlist").collection("chatters").document("chat").collection("messages").addDocument(data: [
+			self.db.collection((Auth.auth().currentUser?.email!)!).document("chatterlist").collection("chatters").document(subtitle).collection("messages").addDocument(data: [
                 "sender": messageSender,
                 "message": messageBody,
                 "time": Date().timeIntervalSince1970
@@ -138,7 +171,7 @@ class ChatViewController: UIViewController {
             }
 			
 			
-			self.db.collection(subtitle).document("chatterlist").collection("chatters").document((Auth.auth().currentUser?.email)!).collection("messages").addDocument(data: [
+			self.db.collection(subtitle).document("chatterlist").collection("chatters").document((Auth.auth().currentUser?.email!)!).collection("messages").addDocument(data: [
 				"sender": messageSender,
 				"message": messageBody,
 				"time": Date().timeIntervalSince1970
@@ -165,7 +198,7 @@ extension ChatViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		
-        return messages.count
+		return messages.count + messagesbysender.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
