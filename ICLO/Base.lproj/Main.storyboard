@@ -232,13 +232,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chit - Chat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NAs-U0-vIs">
-                                <rect key="frame" x="163" y="438" width="84" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3e8-Dh-MWf">
                                 <rect key="frame" x="20" y="52" width="374" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -283,6 +276,20 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <connections>
                                             <action selector="backbutton:" destination="JCd-fA-cES" eventType="touchUpInside" id="V2H-li-0vP"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EuJ-SY-Aef">
+                                        <rect key="frame" x="290" y="6" width="33" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="videoCall:" destination="JCd-fA-cES" eventType="touchUpInside" id="u9b-q5-Nls"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ALr-kF-44u">
+                                        <rect key="frame" x="335" y="7" width="25" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="audioCall:" destination="JCd-fA-cES" eventType="touchUpInside" id="fuh-Tt-zph"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -341,6 +348,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Au0-45-T2R">
+                                <rect key="frame" x="195" y="438" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gCq-Xe-GWJ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -348,6 +359,7 @@
                     <navigationItem key="navigationItem" id="Ju6-s0-1O9"/>
                     <connections>
                         <outlet property="gobutton" destination="b8A-mU-Mx3" id="lQq-nh-cUr"/>
+                        <outlet property="indicator" destination="Au0-45-T2R" id="WUS-5c-uvd"/>
                         <outlet property="lowerBarCamera" destination="6eT-uM-5Cl" id="yNQ-ev-Z1o"/>
                         <outlet property="lowerbar" destination="slZ-jn-gcA" id="ylr-zR-C6B"/>
                         <outlet property="mailspace" destination="3k3-9C-dLS" id="dC7-0w-aB7"/>
@@ -356,11 +368,29 @@
                         <outlet property="textfeild" destination="lOx-qL-wDQ" id="37r-dv-jeX"/>
                         <outlet property="topBarProfileImage" destination="fjF-l7-5c5" id="kKS-HQ-SUp"/>
                         <outlet property="topBarView" destination="3e8-Dh-MWf" id="Qgo-jT-fTT"/>
+                        <segue destination="wRm-7E-5BJ" kind="show" identifier="videoCall" id="N9b-Xi-qRe"/>
+                        <segue destination="evL-rf-XMu" kind="show" identifier="audioCall" id="Ry7-UO-Qfx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BXz-1p-W3m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2797.1014492753625" y="456.69642857142856"/>
+        </scene>
+        <!--Audio Call View Controller-->
+        <scene sceneID="U5L-ye-IvT">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="evL-rf-XMu" customClass="audioCallViewController" customModule="ICLO" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0ux-cm-GDr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="U8C-yJ-SOg"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="kq7-jd-Shs"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hW5-Hk-KtZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3841" y="944"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="sIH-Kw-WUc">
@@ -442,6 +472,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mwC-vc-RI8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="115.94202898550725" y="787.5"/>
+        </scene>
+        <!--Video Call View Controller-->
+        <scene sceneID="hHT-Ok-y1A">
+            <objects>
+                <viewController modalTransitionStyle="flipHorizontal" modalPresentationStyle="fullScreen" id="wRm-7E-5BJ" customClass="videoCallViewController" customModule="ICLO" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NjH-IG-Yve">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="aiQ-Si-tlb"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Tez-9I-VfY"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8OJ-mo-Pb8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3841" y="-8"/>
         </scene>
     </scenes>
     <resources>

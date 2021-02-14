@@ -2,8 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>We will use your camera for the video chat</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We will need your camera for the audio and video chat</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>We need to have your Profile Image</string>
+	<string>Your Microphone Will be used for the conversation</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

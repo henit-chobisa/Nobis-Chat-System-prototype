@@ -18,7 +18,8 @@ class ChatViewController: UIViewController {
     var subtitle = ""
 	var sendimage : UIImage = #imageLiteral(resourceName: "2189")
 	
-	
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
+    
  
     
 
@@ -36,13 +37,21 @@ class ChatViewController: UIViewController {
     var messages : [MessageContent] = []
 	var messagesbysender : [MessageContent] = []
     
-    
+	override func viewWillAppear(_ animated: Bool) {
+        indicator.startAnimating()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.indicator.stopAnimating()
+            self.indicator.alpha = 0
+        }
+	}
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableview.dataSource = self
+      
+        
         
         DispatchQueue.main.async {
             self.topBarView.layer.cornerRadius = 15
@@ -120,7 +129,7 @@ class ChatViewController: UIViewController {
 					.order(by: "time")
 					.addSnapshotListener { (querySnapshot, error) in
 					
-						
+						self.messages = []
 					
 					if let e = error {
 						print("There was an issue retrieving data from Firestore. \(e)")
@@ -145,11 +154,24 @@ class ChatViewController: UIViewController {
         }
 		
 	
-		//MARK: - pin
+		
 		
     }
     
 	//MARK: - sending messages
+    
+    @IBAction func videoCall(_ sender: UIButton) {
+    }
+    
+    
+    
+    @IBAction func audioCall(_ sender: UIButton) {
+    }
+    
+    
+    
+    
+    
 	
     @IBAction func gobuttonpressed(_ sender: UIButton) {
 	

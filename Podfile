@@ -17,7 +17,8 @@ target 'ICLO' do
   pod 'Kingfisher'
   pod 'InstantSearch'
   pod "SearchTextField"
-  pod 'MessageKit'
+  pod 'AgoraAudio_iOS'
+
   
 
 end
